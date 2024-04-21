@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+
+  postgres:
+    image: 'postgres:15.3'
+    container_name: postgresql_restApi
+    environment:
+      - 'POSTGRES_DB=registry'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=admin'
+    ports:
+      - '5433:5432'
+    volumes:
+      - '~/data/registryPSQL:/var/lib/postgresql/data'

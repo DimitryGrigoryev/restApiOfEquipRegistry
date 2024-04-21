@@ -1,0 +1,140 @@
+create table equip_type
+(
+    code varchar
+        constraint equip_type_pk
+            primary key,
+    name varchar(255) not null
+        constraint equip_type_name_unique
+            unique
+);
+comment on table equip_type is 'Тип техники';
+
+insert into equip_type(code, name)
+VALUES ('Televisions', 'Телевизоры'),
+       ('VacuumCleaners', 'Пылесосы'),
+       ('Refrigerators', 'Холодильники'),
+       ('SmartPhones', 'Смартфоны'),
+       ('Desktops', 'Компьютеры');
+
+
+create table equipment
+(
+    name           varchar(255)
+        constraint equipment_pk primary key,
+    equip_type_code varchar(255)
+        constraint equipment_equip_type_code_fk
+            references equip_type,
+    country varchar,
+    company varchar,
+    order_online boolean,
+    in_credit boolean
+
+);
+comment on table equipment is 'Техника';
+
+insert into equipment (name, equip_type_code, country, company, order_online, in_credit)
+VALUES ('Телевизор Samsung', 'Televisions', 'CHINA', 'Samsung', true, true),
+       ('Телевизор Panasonic', 'Televisions', 'CHINA', 'Panasonic', true, true),
+       ('Пылесос Samsung', 'VacuumCleaners', 'CHINA', 'Samsung', true, true),
+       ('Пылесос Panasonic', 'VacuumCleaners', 'CHINA', 'Panasonic', true, true),
+       ('Холодильник Samsung', 'Refrigerators', 'CHINA', 'Samsung', true, true),
+       ('Холодильник Panasonic', 'Refrigerators', 'CHINA', 'Panasonic', true, true),
+       ('Смартфон Samsung', 'SmartPhones', 'CHINA', 'Samsung', true, true),
+       ('Смартфон Panasonic', 'SmartPhones', 'CHINA', 'Panasonic', true, true),
+       ('Компьютер Samsung', 'Desktops', 'CHINA', 'Samsung', true, true),
+       ('Компьютер Panasonic', 'Desktops', 'CHINA', 'Panasonic', true, true);
+
+
+create table model
+(
+    name           varchar(255)
+        constraint model_pk primary key,
+    equipment_name varchar(255)
+        constraint model_equipment_name_fk
+            references equipment,
+    serial_num varchar(255) not null,
+    color varchar,
+    size integer,
+    price DOUBLE PRECISION,
+    available boolean
+);
+comment on table model is 'Модели';
+
+insert into model (name, equipment_name, serial_num, color, size, price, available)
+VALUES ('SamSL-3',     'Телевизор Samsung',  'L2323232', 'grey', 59, 100.00, true),
+       ('SamSL-4',     'Телевизор Samsung',  'L23232232', 'grey', 59, 100.00, false),
+       ('SamSL-10',     'Телевизор Panasonic',  'L23213232', 'white',  59, 100.00, true),
+       ('SamSL-410',    'Телевизор Panasonic',  'L232213232', 'white',  59, 100.00, true),
+       ('SamSL-311',    'Пылесос Samsung',  'L232132132', 'grey',  59, 100.00, true),
+       ('SamSL-310',    'Пылесос Samsung',  'L2321322132', 'grey',  59, 100.00, true),
+       ('SamSL-403',    'Пылесос Panasonic',  'L2321321321', 'white',  59, 100.00, false),
+       ('SamSL-402',    'Пылесос Panasonic',  'L23213221321', 'white',  59, 100.00, true),
+       ('SSL-40313',    'Холодильник Samsung',  'L23211321321', 'grey',  59, 100.00, true),
+       ('SSL-40314',    'Холодильник Samsung',  'L232112321321', 'grey',  59, 100.00, true),
+       ('SampL-41310', 'Холодильник Panasonic', 'L232113213121', 'white',  59, 100.00, true),
+       ('SampL-42310', 'Холодильник Panasonic', 'L2321213213121', 'white',  59, 100.00, false),
+       ('SamhL-40320', 'Смартфон Samsung', 'L23211323121', 'grey',  59, 100.00, true),
+       ('SamhL-40350', 'Смартфон Samsung', 'L232113223121', 'grey',  59, 100.00, true),
+       ('SamSL-50311', 'Смартфон Panasonic',  'L2321323121', 'white',  59, 100.00, false),
+       ('SamSL-50310', 'Смартфон Panasonic',  'L23212323121', 'white',  59, 100.00, true),
+       ('SamSt-40110', 'Компьютер Samsung',  'L232133121', 'grey',  59, 100.00, true),
+       ('SamSt-40010', 'Компьютер Samsung',  'L2321233121', 'grey',  59, 100.00, false),
+       ('SL-40310',    'Компьютер Panasonic',  'L23213121', 'white',  59, 100.00, true),
+       ('SL-40410',     'Компьютер Panasonic',  'L232123121', 'white',  59, 100.00, true);
+
+
+
+create table options
+(
+    id          serial
+        constraint options_pk
+            primary key,
+    name        varchar(255) not null,
+    description    varchar(255) not null,
+    model_name varchar(255) not null
+        constraint options_model_name_fk
+            references model
+);
+comment on table options is 'Опции модели';
+
+insert into options (name, description, model_name)
+VALUES ('Category'  ,        'Big',  'SamSL-3'               ),
+       ('Tehnology' ,       'OLED',  'SamSL-3'               ),
+       ('Category'  ,        'Big',  'SamSL-4'               ),
+       ('Tehnology' ,       'OLED',  'SamSL-4'               ),
+       ('Category'  ,        'Big',  'SamSL-10'              ),
+       ('Tehnology' ,       'OLED',  'SamSL-10'              ),
+       ('Category'  ,        'Big', 'SamSL-410'              ),
+       ('Tehnology' ,       'OLED', 'SamSL-410'              ),
+       ('Value'     ,      '55',    'SamSL-311'              ),
+       ('CountSwhitch',    '3' ,    'SamSL-311'              ),
+       ('Value'     ,     '55',     'SamSL-310'              ),
+       ('CountSwhitch',   '3' ,     'SamSL-310'              ),
+       ('Value'     ,     '55',     'SamSL-403'              ),
+       ('CountSwhitch',   '3' ,     'SamSL-403'              ),
+       ('Value'     ,     '55',     'SamSL-402'              ),
+       ('CountSwhitch',   '3' ,     'SamSL-402'              ),
+       ('CountDoors',        '2',      'SSL-40313'           ),
+       ('TypeCompressor',   'freeon',   'SSL-40313'           ),
+       ('CountDoors',        '2',      'SSL-40314'            ),
+       ('TypeCompressor',   'freeon',   'SSL-40314'           ),
+       ('CountDoors',         '2',     'SampL-41310'        ),
+       ('TypeCompressor',    'freeon',  'SampL-41310'         ),
+       ('CountDoors',         '2',     'SampL-42310'          ),
+       ('TypeCompressor',    'freeon',  'SampL-42310'         ),
+       ('Memory',       '512',       'SamhL-40320'             ),
+       ('CountCamers',  '3',         'SamhL-40320'             ),
+       ('Memory',       '512',        'SamhL-40350'            ),
+       ('CountCamers',  '3',          'SamhL-40350'            ),
+       ('Memory',        '512',       'SamSL-50311'            ),
+       ('CountCamers',   '3',         'SamSL-50311'            ),
+       ('Memory',       '512',        'SamSL-50310'            ),
+       ('CountCamers',  '3',          'SamSL-50310'            ),
+       ('Category',           'Home', 'SamSt-40110'            ),
+       ('TypeProcessor',      'Dual', 'SamSt-40110'            ),
+       ('Category',           'Home', 'SamSt-40010'            ),
+       ('TypeProcessor',      'Dual', 'SamSt-40010'            ),
+       ('Category',           'Home', 'SL-40310'                ),
+       ('TypeProcessor',      'Dual', 'SL-40310'                ),
+       ('Category',           'Home', 'SL-40410'                ),
+       ('TypeProcessor',      'Dual', 'SL-40410'                );

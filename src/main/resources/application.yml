@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/registry
+    username: admin
+    password: secret
+    driver-class-name: org.postgresql.Driver
+
+springdoc:
+  use-management-port: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, openapi, swagger-ui, databases
+  server:
+    port: 9090
+
