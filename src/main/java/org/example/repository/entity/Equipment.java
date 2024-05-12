@@ -10,6 +10,10 @@ import java.util.List;
 public class Equipment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String name;
     @ManyToOne
     private EquipType equipType;

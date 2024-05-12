@@ -9,10 +9,14 @@ import java.util.List;
 public class Model {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "equipment_name", nullable = false)
+    @JoinColumn(name = "equipment_Id", nullable = false)
     private Equipment equipment;
     @Column
     @JoinColumn(name = "serial_num", nullable = false)
@@ -25,6 +29,14 @@ public class Model {
     private double price;
     @Column
     private boolean available;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @OneToMany(mappedBy = "model", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Options> options;

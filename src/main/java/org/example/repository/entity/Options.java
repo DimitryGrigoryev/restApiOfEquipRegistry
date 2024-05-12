@@ -14,7 +14,7 @@ public class Options {
     @Column
     private String description;
     @ManyToOne
-    @JoinColumn(name = "model_name", nullable = false)
+    @JoinColumn(name = "model_id", nullable = false)
     private Model model;
 
     public Options() {
