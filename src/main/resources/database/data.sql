@@ -1,14 +1,3 @@
-create table equip_type
-(
-    code varchar
-        constraint equip_type_pk
-            primary key,
-    name varchar(255) not null
-        constraint equip_type_name_unique
-            unique
-);
-comment on table equip_type is 'Тип техники';
-
 insert into equip_type(code, name)
 VALUES ('Televisions', 'Телевизоры'),
        ('VacuumCleaners', 'Пылесосы'),
@@ -16,21 +5,6 @@ VALUES ('Televisions', 'Телевизоры'),
        ('SmartPhones', 'Смартфоны'),
        ('Desktops', 'Компьютеры');
 
-
-create table equipment
-(
-    name           varchar(255)
-        constraint equipment_pk primary key,
-    equip_type_code varchar(255)
-        constraint equipment_equip_type_code_fk
-            references equip_type,
-    country varchar,
-    company varchar,
-    order_online boolean,
-    in_credit boolean
-
-);
-comment on table equipment is 'Техника';
 
 insert into equipment (name, equip_type_code, country, company, order_online, in_credit)
 VALUES ('Телевизор Samsung', 'Televisions', 'CHINA', 'Samsung', true, true),
@@ -44,21 +18,6 @@ VALUES ('Телевизор Samsung', 'Televisions', 'CHINA', 'Samsung', true, t
        ('Компьютер Samsung', 'Desktops', 'CHINA', 'Samsung', true, true),
        ('Компьютер Panasonic', 'Desktops', 'CHINA', 'Panasonic', true, true);
 
-
-create table model
-(
-    name           varchar(255)
-        constraint model_pk primary key,
-    equipment_name varchar(255)
-        constraint model_equipment_name_fk
-            references equipment,
-    serial_num varchar(255) not null,
-    color varchar,
-    size integer,
-    price DOUBLE PRECISION,
-    available boolean
-);
-comment on table model is 'Модели';
 
 insert into model (name, equipment_name, serial_num, color, size, price, available)
 VALUES ('SamSL-3',     'Телевизор Samsung',  'L2323232', 'grey', 59, 100.00, true),
@@ -83,19 +42,6 @@ VALUES ('SamSL-3',     'Телевизор Samsung',  'L2323232', 'grey', 59, 10
        ('SL-40410',     'Компьютер Panasonic',  'L232123121', 'white',  59, 100.00, true);
 
 
-
-create table options
-(
-    id          serial
-        constraint options_pk
-            primary key,
-    name        varchar(255) not null,
-    description    varchar(255) not null,
-    model_name varchar(255) not null
-        constraint options_model_name_fk
-            references model
-);
-comment on table options is 'Опции модели';
 
 insert into options (name, description, model_name)
 VALUES ('Category'  ,        'Big',  'SamSL-3'               ),

@@ -5,6 +5,13 @@ spring:
     password: secret
     driver-class-name: org.postgresql.Driver
 
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
+      schema-locations: classpath*:database/schema.sql
+      data-locations: classpath*:database/data.sql
+
 springdoc:
   use-management-port: true
 
