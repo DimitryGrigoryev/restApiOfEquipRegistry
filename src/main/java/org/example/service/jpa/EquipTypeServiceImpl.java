@@ -21,7 +21,7 @@ public class EquipTypeServiceImpl implements EquipTypeService {
     }
 
     @Override
-    public List<EquipTypeDto> list() {
+    public List<EquipTypeDto> findAll() {
         List<EquipType> equipTypes = this.repository.findAll();
         if (equipTypes.isEmpty()) {
             throw new EquipmentNotFoundException();

@@ -60,8 +60,8 @@ public class EquipmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EquipmentListDto>> list() {
-        return ResponseEntity.ok(this.equipmentService.find());
+    public ResponseEntity<List<EquipmentListDto>> findAllEquipments() {
+        return ResponseEntity.ok(this.equipmentService.findAll());
     }
 
 }

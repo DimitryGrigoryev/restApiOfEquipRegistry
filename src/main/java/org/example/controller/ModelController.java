@@ -51,7 +51,7 @@ public class ModelController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ModelDto>> list() {
-        return ResponseEntity.ok(this.modelService.find());
+    public ResponseEntity<List<ModelDto>> fetchAllModels() {
+        return ResponseEntity.ok(this.modelService.findAll());
     }
 }

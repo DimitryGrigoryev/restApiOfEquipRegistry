@@ -25,7 +25,7 @@ public class EquipTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EquipTypeDto>> equipTypes(){
-        return ResponseEntity.ok(this.equipTypeService.list());
+    public ResponseEntity<List<EquipTypeDto>> fetchAllTypesEquip(){
+        return ResponseEntity.ok(this.equipTypeService.findAll());
     }
 }

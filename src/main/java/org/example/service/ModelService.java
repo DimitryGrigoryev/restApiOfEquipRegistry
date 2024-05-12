@@ -8,7 +8,7 @@ import java.util.List;
 public interface ModelService {
     ModelNameDto create(ModelDto model);
     void delete (String name);
-    List<ModelDto> find();
+    List<ModelDto> findAll();
     ModelDto findByName(String name);
     List<ModelDto> findByEquipmentName (String equipmentName);
 

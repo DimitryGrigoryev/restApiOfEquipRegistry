@@ -50,7 +50,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public List<EquipmentListDto> find() {
+    public List<EquipmentListDto> findAll() {
         return this.equipmentRepository.findAll()
                 .stream()
                 .map(equipment -> new EquipmentListDto(equipment.getName(), equipment.getEquipType().getName(), equipment.getCountry(), equipment.getCompany(), equipment.isOrder_online(), equipment.isIn_credit()))

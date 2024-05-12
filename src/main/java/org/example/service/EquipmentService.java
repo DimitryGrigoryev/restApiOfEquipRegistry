@@ -9,7 +9,7 @@ import java.util.List;
 public interface EquipmentService {
     EquipmentNameDto create(EquipmentListDto equipment);
     void delete (String name);
-    List<EquipmentListDto> find();
+    List<EquipmentListDto> findAll();
     EquipmentDto findByName (String name);
     List<EquipmentListDto> findByEquipType(String equipType);
 

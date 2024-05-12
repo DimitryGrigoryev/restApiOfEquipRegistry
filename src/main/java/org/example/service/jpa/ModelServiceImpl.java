@@ -60,7 +60,7 @@ public class ModelServiceImpl implements ModelService {
 
 
     @Override
-    public List<ModelDto> find() {
+    public List<ModelDto> findAll() {
         return this.modelRepository.findAll()
                 .stream()
                 .map(model -> new ModelDto(model.getName(), model.getEquipment().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(), model.getOptions()
