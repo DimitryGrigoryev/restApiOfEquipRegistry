@@ -9,7 +9,7 @@ public interface ModelService {
     ModelNameDto create(ModelDto model);
     void delete (String name);
     List<ModelDto> findAll();
-    ModelDto findByName(String name);
-    List<ModelDto> findByEquipmentName (String equipmentName);
+    ModelDto findByNameIgnoreCase(String name);
+    List<ModelDto> findByEquipmentName(String equipmentName);
 
 }

@@ -1,107 +1,43 @@
 package org.example.repository.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table
+@Table(name = "model")
 public class Model {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column
-    private String name;
+    String name;
 
     @ManyToOne
-    @JoinColumn(name = "equipment_Id", nullable = false)
-    private Equipment equipment;
+    @JoinColumn(name = "equipment_id", nullable = false)
+    Equipment equipmentId;
     @Column
     @JoinColumn(name = "serial_num", nullable = false)
-    private String serialNum;
+    String serialNum;
     @Column
-    private String color;
+    String color;
     @Column
-    private int size;
+    int size;
     @Column
-    private double price;
+    double price;
     @Column
-    private boolean available;
+    boolean available;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @OneToMany(mappedBy = "model", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Options> options;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Equipment getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(Equipment equipment) {
-        this.equipment = equipment;
-    }
-
-    public String getSerialNum() {
-        return serialNum;
-    }
-
-    public void setSerialNum(String serialNum) {
-        this.serialNum = serialNum;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
-
-    public List<Options> getOptions() {
-        return options;
-    }
-
-    public void setOptions(List<Options> options) {
-        this.options = options;
-    }
+    @OneToMany(mappedBy = "modelId",fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Options> options;
 }

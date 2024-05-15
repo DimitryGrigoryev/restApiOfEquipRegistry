@@ -32,7 +32,7 @@ public class ModelController {
 
     @GetMapping(value = "{name}")
     public ResponseEntity<ModelDto> modelByName(@PathVariable @Size(min = 3, max = 255) String name) {
-        return ResponseEntity.ok(modelService.findByName(name));
+        return ResponseEntity.ok(modelService.findByNameIgnoreCase(name));
     }
 
     @GetMapping(value = "/by-equipment-name/{equipmentName}")

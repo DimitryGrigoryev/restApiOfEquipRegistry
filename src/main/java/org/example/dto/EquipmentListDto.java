@@ -2,23 +2,24 @@ package org.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EquipmentListDto extends EquipmentNameDto{
 
     @NotEmpty
     @JsonProperty("equip_type_code")
-    private String equipTypeCode;
-    private String country;
-    private String company;
+    String equipTypeCode;
+    String country;
+    String company;
     @JsonProperty("order_online")
-    private boolean orderOnline;
+    boolean orderOnline;
     @JsonProperty("in_credit")
-    private boolean inCredit;
-
-
-    public EquipmentListDto() {
-    }
+    boolean inCredit;
 
     public EquipmentListDto(String name, String equipTypeCode, String country, String company, boolean orderOnline, boolean inCredit) {
         super(name);
@@ -29,44 +30,5 @@ public class EquipmentListDto extends EquipmentNameDto{
         this.inCredit = inCredit;
     }
 
-    public String getEquipTypeCode() {
-        return equipTypeCode;
-    }
-
-    public void setEquipTypeCode(String equipTypeCode) {
-        this.equipTypeCode = equipTypeCode;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public boolean isOrderOnline() {
-        return orderOnline;
-    }
-
-    public void setOrderOnline(boolean orderOnline) {
-        this.orderOnline = orderOnline;
-    }
-
-    public boolean isInCredit() {
-        return inCredit;
-    }
-
-    public void setInCredit(boolean inCredit) {
-        this.inCredit = inCredit;
-    }
 
 }

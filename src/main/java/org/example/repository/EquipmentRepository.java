@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface EquipmentRepository extends JpaRepository<Equipment, String> {
     List<Equipment> findByEquipType_Code(String equipType);
+
+    Equipment findByName(String name);
+
 }

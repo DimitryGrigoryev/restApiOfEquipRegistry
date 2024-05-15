@@ -36,9 +36,11 @@ public class ModelServiceImpl implements ModelService {
     public ModelNameDto create(ModelDto dto) {
         Equipment equipment = this.equipmentRepository.findById(dto.getEquipmentName())
                 .orElseThrow(EquipmentNotFoundException::new);
+
+
         Model model = new Model();
         model.setName(dto.getName());
-        model.setEquipment(equipment);
+        model.setEquipmentId(equipment);
         model.setSerialNum(dto.getSerialNum());
         model.setColor(dto.getColor());
         model.setSize(dto.getSize());
@@ -54,8 +56,15 @@ public class ModelServiceImpl implements ModelService {
     @Override
     @Transactional
     public void delete(String name) {
-        Model model = this.modelRepository.findById(name).orElseThrow(ModelNotFoundException::new);
-        this.modelRepository.deleteById(model.getName());
+        Model model = this.modelRepository.findByNameIgnoreCase(name);
+        if (model == null) {
+            throw new ModelNotFoundException();
+        }
+        this.modelRepository.deleteModelByName(name);
+//        this.modelRepository.deleteById(String.valueOf(model.getId()));
+
+//        Model model = this.modelRepository.findById(String.valueOf(this.modelRepository.findByName(name).getId())).orElseThrow(ModelNotFoundException::new);
+//        this.modelRepository.deleteById(String.valueOf(model.getId()));
     }
 
 
@@ -63,7 +72,7 @@ public class ModelServiceImpl implements ModelService {
     public List<ModelDto> findAll() {
         return this.modelRepository.findAll()
                 .stream()
-                .map(model -> new ModelDto(model.getName(), model.getEquipment().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(), model.getOptions()
+                .map(model -> new ModelDto(model.getName(), model.getEquipmentId().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(), model.getOptions()
                         .stream()
                         .map(options -> new OptionsDto(options.getName(), options.getDescription())).collect(Collectors.toSet()),
                         model.isAvailable()))
@@ -71,9 +80,10 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public ModelDto findByName(String name) {
-        return this.modelRepository.findById(name)
-                .map(model -> new ModelDto(model.getName(), model.getEquipment().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(),
+    public ModelDto findByNameIgnoreCase(String name) {
+
+        return this.modelRepository.findById(String.valueOf(this.modelRepository.findByNameIgnoreCase(name).getId()))
+                .map(model -> new ModelDto(model.getName(), model.getEquipmentId().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(),
                         model.getOptions()
                         .stream()
                         .map(options -> new OptionsDto(options.getName(), options.getDescription())).collect(Collectors.toSet()), model.isAvailable())).orElseThrow(ModelNotFoundException::new);
@@ -81,13 +91,13 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public List<ModelDto> findByEquipmentName(String equipName) {
-        List<Model> models = this.modelRepository.findByEquipment_Name(equipName);
+        List<Model> models = this.modelRepository.findModelsByEquipmentId_Name(equipName);
         if (models.isEmpty()) {
             throw new ModelNotFoundException();
         }
         return models
                 .stream()
-                .map(model -> new ModelDto(model.getName(), model.getEquipment().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(), model.getOptions()
+                .map(model -> new ModelDto(model.getName(), model.getEquipmentId().getName(), model.getSerialNum(), model.getColor(), model.getSize(), model.getPrice(), model.getOptions()
                         .stream()
                         .map(options -> new OptionsDto(options.getName(), options.getDescription())).collect(Collectors.toSet()), model.isAvailable()))
                 .toList();

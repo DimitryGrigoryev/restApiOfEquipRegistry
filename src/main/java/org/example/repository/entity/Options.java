@@ -2,59 +2,31 @@ package org.example.repository.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table
+@Table(name = "options")
 public class Options {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column
-    private String name;
+    String name;
     @Column
-    private String description;
+    String description;
     @ManyToOne
-    @JoinColumn(name = "model_id", nullable = false)
-    private Model model;
+    @JoinColumn(name = "model_id",nullable = false)
+    Model modelId;
 
-    public Options() {
-    }
-
-    public Options(String name, String description, Model model) {
+    public Options(String name, String description, Model modelId) {
         this.name = name;
         this.description = description;
-        this.model = model;
+        this.modelId = modelId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
 }

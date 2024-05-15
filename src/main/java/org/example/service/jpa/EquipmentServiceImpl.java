@@ -60,9 +60,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public EquipmentDto findByName(String name) {
-        return this.equipmentRepository.findById(name)
+        return this.equipmentRepository.findById(String.valueOf(this.equipmentRepository.findByName(name).getId()))
                 .map(equipment -> new EquipmentDto(equipment.getName(), equipment.getEquipType().getName(), equipment.getCountry(), equipment.getCompany(), equipment.isOrder_online(), equipment.isIn_credit(),
-                        equipment.getModel().stream().filter(Model::isAvailable)
+                        equipment.getModel().stream().filter(Model::isAvailable) //!!!!!!!!!!!!!!
                                 .map(model -> new AvailModelDto(model.getName())).collect(Collectors.toSet())
                         )
                 ).orElseThrow(EquipmentNotFoundException::new);

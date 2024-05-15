@@ -6,5 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ModelRepository extends JpaRepository<Model, String> {
-    List<Model> findByEquipment_Name(String equipment);
+    List<Model> findModelsByEquipmentId_Name(String name);
+
+    Model findByNameIgnoreCase(String name);
+
+    void deleteModelByName(String name);
+
 }
