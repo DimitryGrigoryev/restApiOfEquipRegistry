@@ -1,0 +1,124 @@
+GET http://localhost:8080/error
+
+
+###
+GET http://localhost:8080/registry/equip-types
+Accept: application/json
+
+
+###
+GET http://localhost:8080/registry/equip-types?page=0&size=3&sort=name
+Accept: application/json
+
+
+###
+GET http://localhost:8080/registry/equip-types?page=0&size=3&sort=name,desc
+Accept: application/json
+
+
+###
+GET http://localhost:8080/registry/equipment/by-equip-type/Компьютеры
+
+
+###
+POST http://localhost:8080/registry/equipment
+Content-Type: application/json
+
+{
+  "name": "Смартфон Samsung1",
+  "equip_type_id": "4",
+  "country": "CHINA",
+  "company": "Samsung",
+  "order_online": true,
+  "in_credit": true
+}
+###
+GET http://localhost:8080/registry/equipment
+
+###
+GET http://localhost:8080/registry/equipment?page=0&size=5&sort=company
+
+###
+GET http://localhost:8080/registry/equipment/by-equip-type/Компьютеры
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/equipment/find-by-name-with-available-model/Смартфон Samsung1
+
+
+###
+GET http://localhost:8080/registry/equipment/find-by-name/смартфон samsung1
+
+
+###
+DELETE http://localhost:8080/registry/equipment/Смартфон Samsung1
+
+
+###
+GET http://localhost:8080/registry/model?page=0&size=5&sort=price
+
+
+###
+POST http://localhost:8080/registry/model
+Content-Type: application/json
+
+{
+  "name": "SL-404102",
+  "color": "white",
+  "size": 59,
+  "price": 100.0,
+  "available": false,
+  "options": [
+    {
+      "name": "Category",
+      "description": "Home"
+    },
+    {
+      "name": "TypeProcessor",
+      "description": "Dual"
+    }
+  ],
+  "equipment_name": "Смартфон Samsung",
+  "serial_num": "L2321231212"
+}
+###
+GET http://localhost:8080/registry/model/by-all-price
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/model/by-all-color
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/model/by-color/white
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/model/by-equip-type-name/Компьютеры
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/model/by-equip-type-name/Компьютеры?page=0&size=2
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/model/by-equipment-name-is-avail/Компьютер Panasonic
+
+
+###
+GET http://localhost:8080/registry/model/by-equipment-name/Компьютер Panasonic
+
+
+###
+GET http://localhost:8080/registry/model/by-price-between/3/100?page=0&size=3
+Accept: application/json
+
+###
+GET http://localhost:8080/registry/model/SL-404102
+
+
+###
+DELETE http://localhost:8080/registry/model/SL-404102
+
+
+###
